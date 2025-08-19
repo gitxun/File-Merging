@@ -1,0 +1,57 @@
+{
+  "3.1 机械行业知识图谱构建": {
+    "start_line": 1,
+    "end_line": 112,
+    "subsections": {
+      "3.1.1 知识体系设计": {
+        "start_line": 2,
+        "end_line": 26
+      },
+      "3.1.2 多源数据知识抽取": {
+        "start_line": 27,
+        "end_line": 64
+      },
+      "3.1.3 知识融合与推理": {
+        "start_line": 65,
+        "end_line": 112
+      }
+    }
+  },
+  "3.2 多模态知识表示与应用": {
+    "start_line": 113,
+    "end_line": 209,
+    "subsections": {
+      "3.2.1 多模态知识表示": {
+        "start_line": 116,
+        "end_line": 146
+      },
+      "3.2.2 跨模态检索技术": {
+        "start_line": 147,
+        "end_line": 172
+      },
+      "3.2.3 可视化交互技术": {
+        "start_line": 173,
+        "end_line": 209
+      }
+    }
+  },
+  "3.3 典型应用场景开发": {
+    "start_line": 210,
+    "end_line": 289,
+    "subsections": {
+      "3.3.1 智能设计辅助系统": {
+        "start_line": 213,
+        "end_line": 240
+      },
+      "3.3.2 工艺优化决策支持": {
+        "start_line": 241,
+        "end_line": 267
+      },
+      "3.3.3 设备故障诊断系统": {
+        "start_line": 268,
+        "end_line": 289
+      }
+    }
+  },
+  "source_txt": "D:\\python_workspace\\LLM_apply\\FileMerge\\default_output\\基于知识图谱的传统机械行业多模态应用项目申请书\\3_研究内容.txt"
+}

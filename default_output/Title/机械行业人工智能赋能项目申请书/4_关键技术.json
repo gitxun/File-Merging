@@ -1,0 +1,109 @@
+{
+  "4.1 面向机械制造的小样本学习技术": {
+    "start_line": 3,
+    "end_line": 45,
+    "subsections": {
+      "4.1.1 小样本学习技术背景与挑战": {
+        "start_line": 6,
+        "end_line": 13
+      },
+      "4.1.2 迁移学习在机械制造中的应用": {
+        "start_line": 14,
+        "end_line": 21
+      },
+      "4.1.3 元学习技术创新": {
+        "start_line": 22,
+        "end_line": 29
+      },
+      "4.1.4 数据增强算法开发": {
+        "start_line": 30,
+        "end_line": 37
+      },
+      "4.1.5 小样本学习系统框架构建": {
+        "start_line": 38,
+        "end_line": 45
+      }
+    }
+  },
+  "4.2 多模态数据融合与知识图谱构建": {
+    "start_line": 46,
+    "end_line": 84,
+    "subsections": {
+      "4.2.1 多模态数据特征提取技术": {
+        "start_line": 49,
+        "end_line": 57
+      },
+      "4.2.2 多模态融合算法研究": {
+        "start_line": 58,
+        "end_line": 66
+      },
+      "4.2.3 机械制造领域知识图谱构建": {
+        "start_line": 67,
+        "end_line": 75
+      },
+      "4.2.4 设备状态多维度综合评估体系": {
+        "start_line": 76,
+        "end_line": 84
+      }
+    }
+  },
+  "4.3 可解释性人工智能技术": {
+    "start_line": 85,
+    "end_line": 112,
+    "subsections": {
+      "4.3.1 模型可视化解释方法研究": {
+        "start_line": 88,
+        "end_line": 94
+      },
+      "4.3.2 决策溯源系统开发": {
+        "start_line": 95,
+        "end_line": 103
+      },
+      "4.3.3 可信人工智能模型设计": {
+        "start_line": 104,
+        "end_line": 112
+      }
+    }
+  },
+  "4.4 边缘-云端协同计算架构": {
+    "start_line": 113,
+    "end_line": 145,
+    "subsections": {
+      "4.4.1 轻量化模型设计与压缩技术": {
+        "start_line": 116,
+        "end_line": 123
+      },
+      "4.4.2 边缘计算节点设计与部署": {
+        "start_line": 124,
+        "end_line": 130
+      },
+      "4.4.3 云端计算平台建设": {
+        "start_line": 131,
+        "end_line": 136
+      },
+      "4.4.4 边缘-云协同调度策略优化": {
+        "start_line": 137,
+        "end_line": 145
+      }
+    }
+  },
+  "4.5 数字孪生与虚拟调试技术": {
+    "start_line": 146,
+    "end_line": 174,
+    "subsections": {
+      "4.5.1 高保真数字孪生模型开发": {
+        "start_line": 149,
+        "end_line": 157
+      },
+      "4.5.2 虚拟调试方法研究": {
+        "start_line": 158,
+        "end_line": 166
+      },
+      "4.5.3 数字孪生与智能制造融合应用": {
+        "start_line": 167,
+        "end_line": 174
+      }
+    }
+  },
+  "source_txt": "D:\\python_workspace\\LLM_apply\\FileMerge\\default_output\\机械行业人工智能赋能项目申请书\\4_关键技术.txt"
+}

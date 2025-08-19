@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>使用说明 - Word文档批量合并工具</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/main.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航 -->
+        <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left"></i> 返回主界面
+                </a>
+                <h2 class="mb-0 d-flex align-items-center">
+                    <i class="bi bi-info-circle"></i> 使用说明
+                </h2>
+            </div>
+            <img src="/static/images/logo.png" alt="Logo"
+                style="height:48px; border-radius:8px; box-shadow:0 1px 6px #ebebeb;">
+        </div>
+
+        <div class="card border-info shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3"><i class="bi bi-files"></i> Word文档批量合并工具简介</h4>
+                <p>
+                    本工具支持批量上传多个 Word 文件（.doc、.docx），可根据自定义的模块文件进行一键合并，并导出合并后的新文件。界面简洁高效，适用于多稿件整合、批量文档处理场景。
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-1-circle"></i> 文件上传与选择</h5>
+                <ol class="mt-3 mb-0">
+                    <li>
+                        <strong>Word文件上传：</strong>
+                        <ul>
+                            <li>在主界面左侧点击 <span class="text-primary"><i class="bi bi-file-earmark-word"></i> Word文件</span> 区域，选择要合并的 Word 文档（支持多选）。</li>
+                            <li>支持格式：<code>.doc</code>、<code>.docx</code>。</li>
+                            <li>选择后，文件名将在下方列表预览。</li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">
+                        <strong>模块文件上传（可选）：</strong>
+                        <ul>
+                            <li>如果需要自定义合并模块（如章节分组、特殊顺序等），点击 <span class="text-info"><i class="bi bi-file-earmark-text"></i> 模块文件</span> 区域，上传 <code>.json</code> 配置文件。</li>
+                            <li>未上传模块文件时，默认按文件顺序合并。</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-2-circle"></i> 模块编辑与配置</h5>
+                <ul class="mt-3">
+                    <li>可在右侧 <strong>模块编辑区</strong> 对已上传的模块文件内容进行编辑、添加、保存。</li>
+                    <li>支持在线添加模块、修改标题、保存为新模块配置文件。</li>
+                    <li>点击 <span class="btn btn-outline-success btn-sm"><i class="bi bi-floppy"></i> 保存为文件</span> 可将编辑结果下载到本地。</li>
+                    <li>编辑完成后可选择 <span class="btn btn-primary btn-sm">使用当前编辑配置上传</span> 应用所修改的配置内容。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-3-circle"></i> 开始合并与进度追踪</h5>
+                <ul class="mt-3">
+                    <li>确认文件和模块配置后，点击 <span class="btn btn-primary btn-sm"><i class="bi bi-rocket-takeoff"></i> 开始处理</span> 启动批量合并。</li>
+                    <li>处理过程会显示进度条、当前步骤及耗时信息。</li>
+                    <li>合并完成后，<span class="btn btn-warning btn-sm"><i class="bi bi-download"></i> 下载结果文件</span> 按钮会高亮，可直接下载合并文件。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-4-circle"></i> 日志与历史记录</h5>
+                <ul class="mt-3">
+                    <li>可在主界面设置 <strong>日志保留天数</strong>（0~365天），便于追溯操作记录。</li>
+                    <li>下方 <strong>历史步骤</strong> 区域可查看以往操作流程与状态。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-question-circle"></i> 常见问题</h5>
+                <ul class="mt-3">
+                    <li><strong>Q：</strong>文件上传失败怎么办？<br>
+                        <strong>A：</strong>请确认文件格式为 <code>.doc/.docx</code>，单个文件大小未超出平台限制。</li>
+                    <li><strong>Q：</strong>能否自定义合并顺序？<br>
+                        <strong>A：</strong>可通过上传或编辑模块文件（.json）自定义合并顺序和章节。</li>
+                    <li><strong>Q：</strong>合并后格式错乱？<br>
+                        <strong>A：</strong>建议确保所有 Word 文档模板格式一致，避免使用过多特殊样式。</li>
+                    <li><strong>Q：</strong>其他问题如何反馈？<br>
+                        <strong>A：</strong>请联系管理员或使用平台内反馈渠道。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center my-4">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> 返回主界面
+            </a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

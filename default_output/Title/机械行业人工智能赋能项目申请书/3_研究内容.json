@@ -1,0 +1,115 @@
+{
+  "3.1 智能设计与仿真优化": {
+    "start_line": 3,
+    "end_line": 32,
+    "subsections": {
+      "3.1.1 基于生成式对抗网络的智能设计方法": {
+        "start_line": 6,
+        "end_line": 14
+      },
+      "3.1.2 多物理场耦合仿真优化技术": {
+        "start_line": 15,
+        "end_line": 23
+      },
+      "3.1.3 设计-仿真-优化闭环系统构建": {
+        "start_line": 24,
+        "end_line": 32
+      }
+    }
+  },
+  "3.2 生产过程智能控制": {
+    "start_line": 33,
+    "end_line": 57,
+    "subsections": {
+      "3.2.1 基于深度强化学习的自适应控制系统": {
+        "start_line": 36,
+        "end_line": 44
+      },
+      "3.2.2 多源异构数据融合技术研究": {
+        "start_line": 45,
+        "end_line": 50
+      },
+      "3.2.3 数字孪生模型构建与应用": {
+        "start_line": 51,
+        "end_line": 57
+      }
+    }
+  },
+  "3.3 质量智能检测与追溯": {
+    "start_line": 58,
+    "end_line": 82,
+    "subsections": {
+      "3.3.1 基于计算机视觉的多缺陷检测算法": {
+        "start_line": 61,
+        "end_line": 67
+      },
+      "3.3.2 缺陷自动分类与定量分析": {
+        "start_line": 68,
+        "end_line": 73
+      },
+      "3.3.3 全生命周期质量追溯系统构建": {
+        "start_line": 74,
+        "end_line": 82
+      }
+    }
+  },
+  "3.4 设备健康管理与预测性维护": {
+    "start_line": 83,
+    "end_line": 109,
+    "subsections": {
+      "3.4.1 设备状态时序数据分析算法": {
+        "start_line": 86,
+        "end_line": 91
+      },
+      "3.4.2 多传感器数据融合技术": {
+        "start_line": 92,
+        "end_line": 97
+      },
+      "3.4.3 故障预测与剩余寿命估计模型": {
+        "start_line": 98,
+        "end_line": 103
+      },
+      "3.4.4 预测性维护策略设计": {
+        "start_line": 104,
+        "end_line": 109
+      }
+    }
+  },
+  "3.5 智能物流与仓储优化": {
+    "start_line": 110,
+    "end_line": 130,
+    "subsections": {
+      "3.5.1 基于深度学习的物料需求预测": {
+        "start_line": 113,
+        "end_line": 118
+      },
+      "3.5.2 智能仓储管理系统开发": {
+        "start_line": 119,
+        "end_line": 124
+      },
+      "3.5.3 厂内物流路径规划与优化": {
+        "start_line": 125,
+        "end_line": 130
+      }
+    }
+  },
+  "3.6 能源管理与优化": {
+    "start_line": 131,
+    "end_line": 151,
+    "subsections": {
+      "3.6.1 能源消耗数字孪生模型构建": {
+        "start_line": 134,
+        "end_line": 139
+      },
+      "3.6.2 机器学习驱动的能效优化系统": {
+        "start_line": 140,
+        "end_line": 145
+      },
+      "3.6.3 实时监测与动态调整": {
+        "start_line": 146,
+        "end_line": 151
+      }
+    }
+  },
+  "source_txt": "D:\\python_workspace\\LLM_apply\\FileMerge\\default_output\\机械行业人工智能赋能项目申请书\\3_研究内容.txt"
+}

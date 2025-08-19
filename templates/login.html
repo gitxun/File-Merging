@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+  <style>
+    body {
+      background: #f9f9f9;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: #fff;
+      max-width: 360px;
+      margin: 60px auto 0;
+      padding: 36px 32px 28px 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    h2 {
+      text-align: center;
+      color: #444;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 15px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      padding: 10px 8px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #409eff;
+      outline: none;
+    }
+    input[type="submit"] {
+      background: #409eff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 0;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    input[type="submit"]:hover {
+      background: #337ecc;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .link {
+      color: #409eff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .link:hover {
+      color: #337ecc;
+      text-decoration: underline;
+    }
+    .register-block {
+      margin-top: 16px;
+      text-align: right;
+    }
+    .message {
+      color: #e74c3c;
+      background: #fff0f0;
+      border: 1px solid #facdcd;
+      border-radius: 4px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      text-align: center;
+    }
+    /* 模态窗样式（简单版） */
+    .modal-mask {
+      position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.25); display: none; align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: #fff; padding: 24px 18px; border-radius: 8px; box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+      width: 310px; position: relative;
+    }
+    .modal-content h3 {
+      margin-top: 0; margin-bottom: 16px; color: #333; font-size: 18px;
+    }
+    .modal-content label { font-size: 14px; }
+    .modal-close {
+      position: absolute; top: 10px; right: 14px; font-size: 22px; color: #bbb; cursor: pointer;
+      user-select: none; transition: color 0.2s;
+    }
+    .modal-close:hover { color: #409eff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>用户登录</h2>
+    {% with messages = get_flashed_messages() %}
+      {% for msg in messages %}
+        <div class="message">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+    <form method="post">
+      <label for="username">用户名</label>
+      <input type="text" name="username" id="username" required>
+
+      <label for="password">密码</label>
+      <input type="password" name="password" id="password" required>
+
+      <input type="submit" value="登录">
+
+      <div class="actions">
+        <a class="link" href="#" id="forgotPwdBtn">忘记密码？</a>
+      </div>
+    </form>
+    <div class="register-block">
+      <a class="link" href="{{ url_for('register') }}">没有账号？注册</a>
+    </div>
+  </div>
+
+  <!-- 简易找回密码模态框 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <h3>找回密码</h3>
+      <form method="post" action="{{ url_for('admin_reset_pwd') }}">
+        <label>请输入用户名：</label>
+        <input type="text" name="username" required style="width:100%;margin:10px 0 16px 0;padding:7px;">
+        <label style="color:#888; font-size:13px; display:block; margin-bottom:10px;">
+          普通用户请联系管理员重置密码，管理员可自助重置密码。
+        </label>
+        <button type="submit" style="background:#409eff;color:#fff;border:none;border-radius:5px;padding:8px 0;width:100%;font-size:15px;">提交</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // 简单模态窗口逻辑
+    const modal = document.getElementById('modalMask');
+    const openBtn = document.getElementById('forgotPwdBtn');
+    const closeBtn = document.getElementById('modalClose');
+    openBtn.onclick = () => modal.style.display = 'flex';
+    closeBtn.onclick = () => modal.style.display = 'none';
+    modal.onclick = e => { if(e.target === modal) modal.style.display = 'none'; };
+    // 自动聚焦用户名输入框
+    openBtn.onclick = () => { 
+      modal.style.display = 'flex';
+      setTimeout(()=>{ 
+        const input = modal.querySelector('input[name="username"]');
+        if(input) input.focus();
+      }, 80);
+    }
+  </script>
+</body>
+</html>

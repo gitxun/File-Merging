@@ -1,0 +1,80 @@
+<!-- 个人设置模态框 -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('update_profile') }}" enctype="multipart/form-data" id="profileForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="settingsModalLabel">个人设置</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3 text-center">
+            <img src="{% if current_user.avatar_url %}{{ url_for('static', filename=current_user.avatar_url) }}{% elif current_user.role == 'admin' %}/static/images/admin_avatar.png{% elif current_user.role == 'user' %}/static/images/user_avatar.png{% else %}/static/images/default_avatar.png{% endif %}"
+                 alt="头像" class="rounded-circle border" style="width:80px; height:80px; object-fit:cover;">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">更换头像</label>
+            <input type="file" name="avatar" class="form-control" accept="image/*">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">账户名</label>
+            <input type="text" class="form-control" value="{{ current_user.id }}" disabled>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">账户权限</label>
+            <input type="text" class="form-control" value="{{ current_user.role }}" disabled>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">昵称</label>
+            <input type="text" name="nickname" class="form-control" value="{{ current_user.nickname }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">密码</label>
+            <input type="password" class="form-control" value="********" disabled>
+          </div>
+          <div class="mb-3 text-end">
+            <button id="changePwdBtn" type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#changePwdModal">
+              修改密码
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">保存修改</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 修改密码子模态框 -->
+<div class="modal fade" id="changePwdModal" tabindex="-1" aria-labelledby="changePwdModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('change_password') }}" id="pwdForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePwdModalLabel">修改密码</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">当前密码</label>
+            <input type="password" name="current_password" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">新密码</label>
+            <input type="password" name="new_password" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">确认新密码</label>
+            <input type="password" name="confirm_password" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">修改</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
