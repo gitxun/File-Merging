@@ -1,4 +1,3 @@
-// ...existing code...
 # FileMerge — 批量 Word 文档切分、索引、摘要与合并工具 / FileMerge — Batch Word Split, Index, Summarize & Merge
 
 中文 / Chinese & English
