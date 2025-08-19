@@ -1,0 +1,69 @@
+{
+  "5.1 第一阶段：基础研究与技术验证（12个月）": {
+    "start_line": 3,
+    "end_line": 40,
+    "subsections": {
+      "5.1.1 行业需求调研与应用场景确定": {
+        "start_line": 6,
+        "end_line": 14
+      },
+      "5.1.2 实验环境搭建与数据采集": {
+        "start_line": 15,
+        "end_line": 23
+      },
+      "5.1.3 核心算法原型开发与技术可行性验证": {
+        "start_line": 24,
+        "end_line": 32
+      },
+      "5.1.4 初步技术方案和标准框架形成": {
+        "start_line": 33,
+        "end_line": 40
+      }
+    }
+  },
+  "5.2 第二阶段：系统开发与集成测试（18个月）": {
+    "start_line": 41,
+    "end_line": 79,
+    "subsections": {
+      "5.2.1 算法模型优化与系统架构完善": {
+        "start_line": 44,
+        "end_line": 52
+      },
+      "5.2.2 功能模块开发与单元测试": {
+        "start_line": 53,
+        "end_line": 61
+      },
+      "5.2.3 数字孪生平台构建与系统集成": {
+        "start_line": 62,
+        "end_line": 70
+      },
+      "5.2.4 试点企业小规模应用验证": {
+        "start_line": 71,
+        "end_line": 79
+      }
+    }
+  },
+  "5.3 第三阶段：示范应用与推广（6个月）": {
+    "start_line": 80,
+    "end_line": 116,
+    "subsections": {
+      "5.3.1 系统性能优化与稳定性提升": {
+        "start_line": 83,
+        "end_line": 91
+      },
+      "5.3.2 应用范围扩大与多场景验证": {
+        "start_line": 92,
+        "end_line": 99
+      },
+      "5.3.3 技术标准与操作规范编制": {
+        "start_line": 100,
+        "end_line": 108
+      },
+      "5.3.4 技术培训与成果推广": {
+        "start_line": 109,
+        "end_line": 116
+      }
+    }
+  },
+  "source_txt": "D:\\python_workspace\\LLM_apply\\FileMerge\\default_output\\机械行业人工智能赋能项目申请书\\5_实施方案.txt"
+}

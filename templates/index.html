@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word文档批量合并工具</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/main.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        {% if current_user.is_authenticated %}
+        <div class="d-flex justify-content-end align-items-center" style="gap:16px;margin-bottom:12px;">
+            <!-- 头像 -->
+            <img src="{% if current_user.avatar_url %}{{ url_for('static', filename=current_user.avatar_url) }}{% else %}/static/images/default_avatar.png{% endif %}"
+                alt="头像" class="rounded-circle border" style="width:38px; height:38px; object-fit:cover;">
+            <!-- 昵称与角色信息 -->
+            <span>
+                {{ current_user.nickname or current_user.id }}
+                <span class="text-muted" style="font-size:92%;">（{{ current_user.role }}）</span>
+            </span>
+            <!-- 设置按钮 -->
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settingsModal"
+                title="个人设置">
+                <i class="bi bi-gear"></i>
+            </button>
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary btn-sm">退出登录</a>
+            {% if current_user.role != 'admin' %}
+            <form action="{{ url_for('unregister') }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-outline-danger btn-sm"
+                    onclick="return confirm('确定要注销并删除账号吗？')">自助注销</button>
+            </form>
+            {% endif %}
+            {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('admin_users') }}" class="btn btn-outline-primary btn-sm">用户管理</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+
+        <!-- 顶部区域 -->
+        <div class="header-box mb-4 d-flex justify-content-between align-items-center" style="gap:20px;">
+            <h1 class="mb-0 d-flex align-items-center"><i class="bi bi-files"></i> Word文档批量合并工具</h1>
+            <div class="d-flex align-items-center" style="gap:12px;">
+                <span class="header-tip text-secondary">支持批量上传与多个Word文件一键合并和导出</span>
+                <a href="/usage" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-info-circle"></i> 使用说明
+                </a>
+
+                <img src="/static/images/logo.png" alt="Logo"
+                    style="height:64px; margin-left:18px; border-radius:8px; box-shadow: 0 1px 6px #ebebeb;">
+            </div>
+        </div>
+
+        <!-- 文件选择栏 -->
+        <div class="file-edit-flex-container">
+            <!-- 左：文件选择区 -->
+            <div class="file-upload-container">
+                <div class="file-upload-title">
+                    <i class="bi bi-folder2-open"></i>
+                    文件选择
+                </div>
+                <div class="file-choose-row">
+                    <!-- Word模块（卡片+预览） -->
+                    <div class="file-pair">
+                        <div class="file-card" id="input_files_card" onclick="triggerInput('input_files_picker')"
+                            title="选择Word文件（可多选）">
+                            <span class="file-checkmark d-none" id="input_files_checked">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </span>
+                            <i class="bi bi-file-earmark-word"></i>
+                            <span class="caption-below">Word文件</span>
+                            <input type="file" id="input_files_picker"
+                                accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                multiple hidden>
+                        </div>
+                        <ul id="input_files_list" class="file-list-preview"></ul>
+                    </div>
+                    <!-- 模块配置（卡片+预览） -->
+                    <div class="file-pair">
+                        <div class="file-card" id="module_config_card" onclick="triggerInput('module_config_picker')"
+                            title="选择模块配置文件（.json）">
+                            <span class="file-checkmark d-none" id="module_config_checked">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </span>
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span class="caption-below">模块文件</span>
+                            <input type="file" id="module_config_picker" accept=".json" hidden>
+                        </div>
+                        <ul id="module_config_list" class="file-list-preview"></ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 模块编辑区 -->
+            <div class="module-edit-wrapper">
+                <div id="module_titles_editor" style="display:none;">
+                    <h5 class="module-edit-title">
+                        <i class="bi bi-pencil-square"></i>
+                        编辑模块
+                    </h5>
+                    <ul id="module_titles_list"></ul>
+                    <button onclick="addModuleTitle()">添加模块</button>
+                    <button onclick="saveModuleConfig()">保存为文件</button>
+                    <button id="applyEditedModuleConfigBtn" onclick="applyEditedModuleConfig()"
+                        style="margin-left:10px;">使用当前编辑配置上传</button>
+                    <div id="edit_status_hint" style="margin-top:8px; color:#4caf50; display:none;">
+                        当前操作将上传你编辑后的模块配置
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日志保留天数 -->
+        <div class="mb-3 mt-4" style="max-width:340px;">
+            <div class="card shadow-sm border-info" style="border-radius: 14px;">
+                <div class="card-body py-2 px-3 d-flex align-items-center gap-2">
+                    <i class="bi bi-journal-text text-info fs-4"></i>
+                    <label for="days" class="form-label mb-0 fw-semibold" style="white-space: nowrap;">日志保留天数</label>
+                    <input id="days" type="number" class="form-control ms-2" value="1" min="0" max="365"
+                        style="width:90px;" />
+                    <span class="ms-2 text-secondary">天</span>
+                </div>
+            </div>
+        </div>
+
+        <button id="start-process-btn" type="button" onclick="startProcess()" class="btn btn-primary w-100 mb-3">
+            <i class="bi bi-rocket-takeoff"></i> 开始处理
+        </button>
+
+
+        <!-- 进度卡片 -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-0 pb-0 d-flex align-items-center">
+                <i class="bi bi-bar-chart fs-5 text-primary"></i>
+                <span class="ms-2 fw-bold">进度追踪</span>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label mb-1" style="vertical-align: middle;">
+                        <span id="processing-info" style="display: none; align-items: center;">
+                            <span class="processing-text">程序正在处理，请耐心等待</span>
+                            <span class="processing-dots ms-2">
+                                <span>.</span>
+                                <span>.</span>
+                                <span>.</span>
+                            </span>
+                        </span>
+                    </label>
+
+                    <div class="progress mb-2">
+                        <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated"
+                            style="width: 0%">0%</div>
+                    </div>
+                </div>
+                <div class="alert alert-info step-alert mb-2 d-flex align-items-center" role="alert">
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span class="ms-2">当前步骤: <span id="current_step" class="fw-bold">无</span></span>
+                    <span class="badge rounded-pill bg-primary ms-3 time-badge">
+                        <i class="bi bi-clock-history"></i>
+                        当前步骤耗时: <span id="current_step_time" class="fw-bold">00:00:00</span>
+                    </span>
+                    <span class="badge rounded-pill bg-success ms-3 time-badge">
+                        <i class="bi bi-hourglass-split"></i>
+                        总计耗时: <span id="total_time" class="fw-bold">00:00:00</span>
+                    </span>
+                    <a id="download-result-btn" href="#" class="btn btn-warning btn-lg shadow d-none ms-auto"
+                        style="min-width:200px;" download>
+                        <i class="bi bi-download"></i> 下载结果文件
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 历史步骤 -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body">
+                <h5><i class="bi bi-list-check"></i> 历史步骤</h5>
+                <ul id="history" class="list-group list-group-flush"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+    <!-- 你自己的 JS -->
+    <script src="/static/main.js"></script>
+    <!-- Bootstrap JS（必须） -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 引入个人设置模态框 -->
+    {% include 'profile.html' %}
+
+</body>
+
+</html>

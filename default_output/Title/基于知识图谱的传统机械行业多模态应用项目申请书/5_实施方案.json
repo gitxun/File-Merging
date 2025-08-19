@@ -1,0 +1,40 @@
+{
+  "5.1 技术路线": {
+    "start_line": 1,
+    "end_line": 15,
+    "subsections": {}
+  },
+  "5.2 实施计划": {
+    "start_line": 16,
+    "end_line": 70,
+    "subsections": {
+      "5.2.1 第一阶段（6个月）": {
+        "start_line": 19,
+        "end_line": 31
+      },
+      "5.2.2 第二阶段（12个月）": {
+        "start_line": 32,
+        "end_line": 44
+      },
+      "5.2.3 第三阶段（12个月）": {
+        "start_line": 45,
+        "end_line": 57
+      },
+      "5.2.4 第四阶段（6个月）": {
+        "start_line": 58,
+        "end_line": 70
+      }
+    }
+  },
+  "5.3 组织管理": {
+    "start_line": 71,
+    "end_line": 87,
+    "subsections": {}
+  },
+  "5.4 预期成果": {
+    "start_line": 88,
+    "end_line": 113,
+    "subsections": {}
+  },
+  "source_txt": "D:\\python_workspace\\LLM_apply\\FileMerge\\default_output\\基于知识图谱的传统机械行业多模态应用项目申请书\\5_实施方案.txt"
+}
