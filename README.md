@@ -89,6 +89,5 @@
 - LICENSE（见下文）
 
 许可证 | License
-本项目说明及 README 采用 CC BY-NC 4.0（署名-非商业性使用）。  
-若要整个仓库使用该协议，请在仓库根目录添加 LICENSE 文件并写入 CC BY-NC 4.0 正式文本。  
-This README is under CC BY-NC 4.0. To license the whole repo under CC BY-NC 4.0, add a LICENSE file with the official text.
+本项目说明及 README 采用 CC BY-NC 4.0（署名-非商业性使用）。    
+This README is under CC BY-NC 4.0. 
