@@ -1,93 +1,95 @@
 // ...existing code...
-# FileMerge — 批量 Word 文档切分、索引、摘要与合并工具
+# FileMerge — 批量 Word 文档切分、索引、摘要与合并工具 / FileMerge — Batch Word Split, Index, Summarize & Merge
 
-简体中文
+中文 / Chinese & English
 
-本仓库实现了一个基于 Flask 的 Web 服务，用于批量处理 Word 文档（切分、提取标题/摘要、格式化、索引、合并并生成最终 Word）。前端通过 Socket.IO 展示实时进度，管理员账户用于上传并启动处理流程。
+简短说明 | Summary
+- 本仓库实现了一个基于 Flask 的 Web 服务，用于批量处理 Word 文档：切分为 txt、提取标题/摘要、格式化、索引并合并生成最终 Word。前端通过 Socket.IO 展示实时进度。  
+- This repo provides a Flask-based web service to batch-process Word documents: split to txt, extract headings/summaries, format, index and merge into final Word files. Progress is pushed to the frontend via Socket.IO.
 
-## 快速概览
-- 入口：`app.py`（Flask + Flask-SocketIO）
-- 核心流程：`file_merge_pipeline.py` 中的 `process_word_documents`
-- 主要模块目录：
-  - `Module_merge/`：合并与索引
-  - `SummaryExtract/`：摘要与 LLM 调用
-  - `FilePreProcess/`：预处理与日志
-  - `TxtoWord/`：TXT -> Word 及格式化
-- 运行时目录：
-  - 上传输入：`uploaded_input/`
-  - 输出结果：`default_output/`
-  - 日志目录：`log/`
-- 配置文件示例：`module_config.json`、`api_config.json`、`users.json`
+目录 | Contents
+- app.py — Flask 应用（登录、管理员、启动处理、下载）  
+- file_merge_pipeline.py — 处理流程编排（process_word_documents）  
+- Module_merge/ — 合并与索引模块  
+- SummaryExtract/ — 摘要与 LLM 调用示例  
+- FilePreProcess/ — 文档预处理与日志工具  
+- templates/, static/ — 前端模板与静态资源  
+- 配置/运行目录：module_config.json、api_config.json、users.json、uploaded_input/、default_output/、log/
 
-## 快速运行（Windows）
-1. 建议创建虚拟环境并激活：
+快速开始（Windows） | Quick start (Windows)
+1. 创建并激活虚拟环境（可选）
    - PowerShell:
-     ```
+     ```powershell
      python -m venv .venv
      .\.venv\Scripts\Activate.ps1
      ```
    - CMD:
-     ```
+     ```cmd
      python -m venv .venv
      .\.venv\Scripts\activate
      ```
-2. 安装依赖（若有 requirements.txt）：
-   ```
+2. 安装依赖（若有 requirements.txt）
+   ```cmd
    pip install -r requirements.txt
    ```
-3. 启动服务：
-   ```
+3. 启动服务
+   ```cmd
    python app.py
    ```
-   访问：http://localhost:5000
+   打开浏览器访问：http://localhost:5000  
+   Open http://localhost:5000
 
-## 快速运行（Linux / macOS）
-1. 创建并激活虚拟环境：
+快速开始（Linux / macOS） | Quick start (Linux / macOS)
+1. 创建并激活虚拟环境
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
    ```
-2. 安装依赖：
+2. 安装依赖
    ```bash
    pip install -r requirements.txt
    ```
-3. 启动服务（如需后台运行可使用 nohup 或 systemd）：
+3. 启动服务（后台运行示例）
    ```bash
    python3 app.py
-   # 或后台运行示例：
+   # 或者
    nohup python3 app.py > server.log 2>&1 &
    ```
    访问：http://localhost:5000
 
-## 使用要点
-- 权限：只有 role 为 `admin` 的用户可通过 `/start` 发起处理任务（参见 `app.py`）。
-- 输入：通过界面或 API 上传 Word 文件与模块配置，文件保存到 `uploaded_input/`。
-- 输出：处理结果保存在 `default_output/`，下载接口仅允许该目录下文件。
-- 进度：通过 Socket.IO 事件 `progress_update`、`process_done`、`process_error` 推送到前端。
+主要功能与流程 | Main features & pipeline
+1. 文档切分（Word -> txt）  
+2. 多级标题提取与索引生成  
+3. 摘要提取（可接入 LLM）  
+4. JSON/文本格式化与合并预处理  
+5. 最终合并并生成 Word 文档  
+- 相关主函数：file_merge_pipeline.py 中的 process_word_documents(input_dir, output_root, ...)  
+- Progress callbacks via Socket.IO events (e.g. progress_update / process_done / process_error).
 
-## 主要入口与函数
-- `app.py`：Web 接口、后台任务调度、下载接口
-  - 启动任务：`start_process`
-  - 后台执行：`run_process`
-  - 下载：`download_result_file`
-- `file_merge_pipeline.py`：
-  - `process_word_documents(input_dir, output_root, ...)`：处理全过程（切分、索引、摘要、合并、生成 Word）
+权限与用户 | Users & permissions
+- 使用 users.json 管理用户，role 字段控制权限（如 admin 可发起任务）。  
+- Only users with role == "admin" can call /start to run processing tasks.
 
-## 日志与清理
-- 日志在 `log/`，由 `FilePreProcess/utils.py` 中的 `setup_logger` 与 `clean_old_logs` 管理。
-- `process_word_documents` 支持指定保留日志天数（参数 `days_to_keep`）。
+配置要点 | Configuration
+- module_config.json：控制切分/合并策略  
+- api_config.json：外部 LLM/API 配置（如需）  
+- users.json：用户和密码哈希信息  
+- 输出目录限制：下载接口仅允许访问 default_output/ 下的文件以避免任意路径暴露。
 
-## 开发与贡献
-- 项目按模块划分，便于单元测试与扩展。提交 PR 前请确保相关模块在本地可运行。
-- 建议补充 `requirements.txt` 与示例 `users.json`（含管理员）以便快速上手。
+日志 | Logging
+- 日志文件保存在 log/，由 FilePreProcess/utils.py 的 setup_logger 与 clean_old_logs 管理。  
+- Configure days_to_keep when calling process_word_documents to control log retention.
 
-## 常见问题
-- 无法发起任务：请确认以管理员身份登录。
-- API 调用失败：检查 `api_config.json` 与网络/密钥设置。
-- 未找到输出文件：检查后台日志与 `default_output/` 目录，确认处理流程已完成。
+常见命令 | Common commands
+- 生成 requirements 示例（如没有 requirements.txt，请在虚拟环境中运行 pip freeze > requirements.txt）  
+- 启动后台（Linux）：nohup python3 app.py > server.log 2>&1 &
 
-## 许可证
-本 README 与项目说明采用 CC BY-NC 4.0（署名-非商业性使用）。  
-如需将整个代码仓库采用该许可证，请在仓库根目录添加 LICENSE 文件（内容可参考 Creative Commons 官方 CC BY-NC 4.0 文本）。
+示例文件建议 | Suggested example files
+- requirements.txt（列出 Flask, Flask-SocketIO, Flask-Login, Flask-Bcrypt 等依赖）  
+- users.json 示例（包含一个管理员账户）  
+- LICENSE（见下文）
 
----
+许可证 | License
+本项目说明及 README 采用 CC BY-NC 4.0（署名-非商业性使用）。  
+若要整个仓库使用该协议，请在仓库根目录添加 LICENSE 文件并写入 CC BY-NC 4.0 正式文本。  
+This README is under CC BY-NC 4.0. To license the whole repo under CC BY-NC 4.0, add a LICENSE file with the official text.
